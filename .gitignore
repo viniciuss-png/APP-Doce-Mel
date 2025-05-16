@@ -1,5 +1,5 @@
 myapi/core/config.py
-__pycache__
+__pycache__/
 *.pyc
 venv/
 .env
