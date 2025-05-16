@@ -1,4 +1,4 @@
-api/core/config.py
+myapi/core/config.py
 __pycache__
 *.pyc
 venv/
