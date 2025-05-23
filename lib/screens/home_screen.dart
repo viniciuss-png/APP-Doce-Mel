@@ -1,39 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:docemel_f/screens/talhao_detail_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final talhoes = ['A', 'B', 'C'];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bem-vindo ao App!'),
+        title: const Text('Selecione um Talhão'),
         automaticallyImplyLeading: false,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Login realizado com sucesso!',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: talhoes.length,
+        itemBuilder: (context, index) {
+          final talhao = talhoes[index];
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Esta é a tela inicial. Futuramente, aqui você verá os talhões.',
-              style: TextStyle(fontSize: 16),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
+            elevation: 4,
+            margin: const EdgeInsets.symmetric(vertical: 12),
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(16),
+              leading: Icon(
+                Icons.landscape,
+                color: Colors.green[800],
+                size: 32,
+              ),
+              title: Text(
+                'Talhão $talhao',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: const Text('Clique para ver mais detalhes do Talhão'),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        TalhaoDetailScreen(nomeTalhao: talhao),
+                  ),
+                );
               },
-              child: const Text('Voltar para o Login'),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

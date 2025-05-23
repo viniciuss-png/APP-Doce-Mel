@@ -10,25 +10,31 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     _usernameController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
   void _performLogin() {
     final String username = _usernameController.text;
+    final String password = _passwordController.text;
 
-    if (username.isEmpty) {
+    if (username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Por favor, digite seu código de usuário.'),
+          content: Text('Por favor, preencha o nome de usuário e a senha.'),
         ),
       );
       return;
     }
-    print('Código de usuário digitado: $username');
+
+    print('Usuário digitado: $username');
+    print('Senha digitada: $password');
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -38,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Doce Mel - Login')),
+      appBar: AppBar(title: const Text('Docemel - Login')),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -56,11 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 48),
+
               TextField(
                 controller: _usernameController,
                 decoration: InputDecoration(
-                  labelText: 'Código de usuário',
-                  hintText: 'Digite seu código de usuário',
+                  labelText: 'Nome de usuário',
+                  hintText: 'Digite seu nome de usuário',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -68,7 +75,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 keyboardType: TextInputType.text,
               ),
+
+              const SizedBox(height: 16),
+
+              TextField(
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  hintText: 'Digite sua senha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  prefixIcon: const Icon(Icons.lock),
+                ),
+                keyboardType: TextInputType.text,
+              ),
+
               const SizedBox(height: 32),
+
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green[700],
