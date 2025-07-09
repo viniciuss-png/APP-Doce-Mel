@@ -6,10 +6,10 @@ class HistoricoOperacoesScreen extends StatelessWidget {
   final List<RegistroOperacao> historico;
 
   const HistoricoOperacoesScreen({
-    Key? key,
+    super.key,
     required this.talhaoNome,
     required this.historico,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
