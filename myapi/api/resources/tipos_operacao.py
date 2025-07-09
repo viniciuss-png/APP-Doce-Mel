@@ -5,34 +5,34 @@ from models.tipos_operacao import TiposOperacao
 tiposOperacaoBp = Blueprint('tiposOperacao', __name__, url_prefix='/tiposOperacao')
 
 @tiposOperacaoBp.route('/', methods=['GET'])
-def get_tiposOperacao():
-    tiposOperacao = TiposOperacao.query.all()
-    return jsonify([tiposOperacao.to_dict() for tiposOperacao in tiposOperacao])
+def get_tipos_operacao():
+    tipos_operacao = TiposOperacao.query.all()
+    return jsonify([tipos_operacao.to_dict() for tipos_operacao in tipos_operacao])
 
 @tiposOperacaoBp.route('/create', methods=['POST'])
-def create_tiposOperacao():
+def create_tipos_operacao():
     data = request.get_json()
-    tiposOperacao = TiposOperacao(**data)
-    db.session.add(tiposOperacao)
+    tipos_operacao = TiposOperacao(**data)
+    db.session.add(tipos_operacao)
     db.session.commit()
-    return jsonify(tiposOperacao.to_dict()), 201
+    return jsonify(tipos_operacao.to_dict()), 201
 
 @tiposOperacaoBp.route('/<int:id>', methods=['PUT'])
-def update_tiposOperacao(id):
+def update_tipos_operacao(id):
     data = request.get_json()
-    tiposOperacao = TiposOperacao.query.get(id)
-    if not tiposOperacao:
-        return jsonify({'message': 'TiposOperacao não encontrado'}), 404
+    tipos_operacao = TiposOperacao.query.get(id)
+    if not tipos_operacao:
+        return jsonify({'message': 'Tipos Operacao não encontrado'}), 404
     for key, value in data.items():
-        setattr(tiposOperacao, key, value)
+        setattr(tipos_operacao, key, value)
     db.session.commit()
-    return jsonify(tiposOperacao.to_dict()), 200
+    return jsonify(tipos_operacao.to_dict()), 200
 
 @tiposOperacaoBp.route('/<int:id>', methods=['DELETE'])
-def delete_tiposOperacao(id):
-    tiposOperacao = TiposOperacao.query.get(id)
-    if not tiposOperacao:
-        return jsonify({'message': 'TiposOperacao não encontrado'}), 404
-    db.session.delete(tiposOperacao)
+def delete_tipos_operacao(id):
+    tipos_operacao = TiposOperacao.query.get(id)
+    if not tipos_operacao:
+        return jsonify({'message': 'Tipos Operacao não encontrado'}), 404
+    db.session.delete(tipos_operacao)
     db.session.commit()
-    return jsonify({'message': 'TiposOperacao excluído com sucesso'}), 200
+    return jsonify({'message': 'Tipos Operacao excluído com sucesso'}), 200

@@ -7,7 +7,7 @@ talhaoBp = Blueprint('talhao', __name__, url_prefix='/talhao')
 @talhaoBp.route('/', methods=['GET'])
 def get_talhoes():
     talhoes = Talhao.query.all()
-    return jsonify([talhao.to_dict() for talhao in talhoes])
+    return jsonify([Talhao.to_dict(talhao) for talhao in talhoes])
 
 @talhaoBp.route('/create', methods=['POST'])
 def create_talhao():
@@ -30,7 +30,6 @@ def update_talhao(id):
 
 @talhaoBp.route('/<int:id>', methods=['DELETE'])
 def delete_talhao(id):
-    data = request.get_json()
     talhao = Talhao.query.get(id)
     if not talhao:
         return jsonify({'message': 'Talhao não encontrado'}), 404
